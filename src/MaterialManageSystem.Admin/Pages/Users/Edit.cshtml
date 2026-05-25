@@ -1,0 +1,70 @@
+@page
+@model MaterialManageSystem.Admin.Pages.Users.EditModel
+@{
+    ViewData["Title"] = "编辑用户";
+}
+
+<div class="card">
+    <div class="card-header">
+        <h5>编辑用户</h5>
+    </div>
+    <div class="card-body">
+        @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+        {
+            <div class="alert alert-danger">@Model.ErrorMessage</div>
+        }
+
+        @if (Model.User != null)
+        {
+            <form method="post">
+                <div class="form-group">
+                    <label for="Username">用户名</label>
+                    <input type="text" class="form-control" id="Username" name="Username" value="@Model.User.Username" readonly />
+                </div>
+
+                <div class="form-group">
+                    <label for="Password">新密码（留空则不修改）</label>
+                    <input type="password" class="form-control" id="Password" name="Password" />
+                </div>
+
+                <div class="form-group">
+                    <label for="EmployeeId">关联员工</label>
+                    <select class="form-control" id="EmployeeId" name="EmployeeId">
+                        <option value="">不关联员工</option>
+                        @foreach (var employee in Model.AvailableEmployees)
+                        {
+                            <option value="@employee.Id" selected="@(employee.Id == Model.User.EmployeeId)">@employee.Name (@employee.EmployeeNo)</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="UserType">用户类型</label>
+                    <select class="form-control" id="UserType" name="UserType">
+                        <option value="0" selected="@(Model.User.UserType == 0)">普通用户</option>
+                        <option value="1" selected="@(Model.User.UserType == 1)">管理员</option>
+                        <option value="2" selected="@(Model.User.UserType == 2)">系统管理员</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="IsActive">状态</label>
+                    <select class="form-control" id="IsActive" name="IsActive">
+                        <option value="true" selected="@(Model.User.IsActive)">启用</option>
+                        <option value="false" selected="@(!Model.User.IsActive)">禁用</option>
+                    </select>
+                </div>
+
+                <div class="mt-3">
+                    <button type="submit" class="btn btn-primary">保存</button>
+                    <a asp-page="/Users" class="btn btn-secondary">取消</a>
+                </div>
+            </form>
+        }
+        else
+        {
+            <div class="alert alert-danger">用户不存在</div>
+            <a asp-page="/Users" class="btn btn-secondary">返回列表</a>
+        }
+    </div>
+</div>

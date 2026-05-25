@@ -1,0 +1,29 @@
+@page "{id}"
+@model MaterialManageSystem.Admin.Pages.Reels.EditModel
+@{
+    ViewData["Title"] = "编辑料卷";
+    ViewData["ActivePage"] = "Reels";
+}
+
+<div class="card">
+    <div class="card-header">编辑料卷</div>
+    <div class="card-body">
+        <form method="post">
+            <input type="hidden" asp-for="Reel.Id" />
+            <div class="form-group">
+                <label asp-for="Reel.ReelNo" class="control-label">料卷编号</label>
+                <input asp-for="Reel.ReelNo" class="form-control" disabled />
+            </div>
+            <div class="form-group">
+                <label asp-for="Reel.ManufactureDate" class="control-label">生产日期</label>
+                <input asp-for="Reel.ManufactureDate" type="date" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Reel.ExpiryDate" class="control-label">过期日期</label>
+                <input asp-for="Reel.ExpiryDate" type="date" class="form-control" />
+            </div>
+            <button type="submit" class="btn btn-primary mt-3">保存</button>
+            <a asp-page="/Reels" class="btn btn-secondary mt-3">返回</a>
+        </form>
+    </div>
+</div>

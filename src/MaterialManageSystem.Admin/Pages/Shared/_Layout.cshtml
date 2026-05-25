@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - 物料管理系统</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+        .sidebar {
+            min-height: 100vh;
+            background-color: #212529;
+        }
+        .sidebar .nav-link {
+            color: rgba(255,255,255,.75);
+        }
+        .sidebar .nav-link:hover, .sidebar .nav-link.active {
+            color: #fff;
+            background-color: rgba(255,255,255,.1);
+        }
+        .sidebar .nav-link i {
+            margin-right: 8px;
+            width: 20px;
+            text-align: center;
+        }
+        .main-content {
+            min-height: 100vh;
+            background-color: #f8f9fa;
+        }
+    </style>
+</head>
+<body>
+    <div class="d-flex min-vh-100">
+        <nav class="sidebar col-md-3 col-lg-2 d-md-block flex-shrink-0">
+            <div class="position-sticky pt-3">
+                <h5 class="text-white px-3 pb-3 border-bottom">物料管理系统</h5>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link @(ViewData["ActivePage"]?.ToString() == "Dashboard" ? "active" : "")" asp-page="/Dashboard">
+                            <i class="fas fa-tachometer-alt"></i> 仪表盘
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link @(ViewData["ActivePage"]?.ToString() == "Warehouses" ? "active" : "")" asp-page="/Warehouses">
+                            <i class="fas fa-warehouse"></i> 库房管理
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link @(ViewData["ActivePage"]?.ToString() == "PartNos" ? "active" : "")" asp-page="/PartNos">
+                            <i class="fas fa-box"></i> 物料管理
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link @(ViewData["ActivePage"]?.ToString() == "Reels" ? "active" : "")" asp-page="/Reels">
+                            <i class="fas fa-cog"></i> 料卷管理
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link @(ViewData["ActivePage"]?.ToString() == "Cells" ? "active" : "")" asp-page="/Cells">
+                            <i class="fas fa-th-large"></i> 单元格管理
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link @(ViewData["ActivePage"]?.ToString() == "Warnings" ? "active" : "")" asp-page="/Warnings">
+                            <i class="fas fa-exclamation-triangle"></i> 预警管理
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link @(ViewData["ActivePage"]?.ToString() == "Employees" ? "active" : "")" asp-page="/Employees">
+                            <i class="fas fa-users"></i> 员工管理
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link @(ViewData["ActivePage"]?.ToString() == "Users" ? "active" : "")" asp-page="/Users">
+                            <i class="fas fa-user"></i> 用户管理
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link @(ViewData["ActivePage"]?.ToString() == "Roles" ? "active" : "")" asp-page="/Roles">
+                            <i class="fas fa-user-shield"></i> 角色管理
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link @(ViewData["ActivePage"]?.ToString() == "OperationLogs" ? "active" : "")" asp-page="/OperationLogs">
+                            <i class="fas fa-file-alt"></i> 操作日志
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <main role="main" class="main-content flex-grow-1 px-md-4 py-4">
+            <header class="mb-4">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center">
+                    <h1 class="h2">@ViewData["Title"]</h1>
+                    @if (!string.IsNullOrEmpty(Context.Session.GetString("Token")))
+                    {
+                        <div class="btn-toolbar mb-2 mb-md-0">
+                            <div class="btn-group mr-2">
+                                <a asp-page="/Logout" class="btn btn-outline-danger">
+                                    <i class="fas fa-sign-out-alt"></i> 退出登录
+                                </a>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </header>
+            @RenderBody()
+        </main>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,50 @@
+@page
+@model MaterialManageSystem.Admin.Pages.PartNosModel
+@{
+    ViewData["Title"] = "物料管理";
+    ViewData["ActivePage"] = "PartNos";
+}
+
+<a asp-page="/PartNos/Create" class="btn btn-primary mb-3">
+    <i class="fas fa-plus"></i> 新建物料
+</a>
+
+<div class="card">
+    <div class="card-header">物料列表</div>
+    <div class="card-body">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>物料编码</th>
+                    <th>名称</th>
+                    <th>规格</th>
+                    <th>单位</th>
+                    <th>总库存</th>
+                    <th>预警值</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var partNo in Model.PartNos)
+                {
+                    <tr>
+                        <td>@partNo.PartNoCode</td>
+                        <td>@partNo.Name</td>
+                        <td>@(partNo.Specification ?? "-")</td>
+                        <td>@partNo.Unit</td>
+                        <td>@partNo.TotalQuantity</td>
+                        <td>@(partNo.WarningQuantity?.ToString() ?? "-")</td>
+                        <td>
+                            <a asp-page="/PartNos/Edit" asp-route-id="@partNo.Id" class="btn btn-sm btn-warning">
+                                <i class="fas fa-edit"></i> 编辑
+                            </a>
+                            <a asp-page="/PartNos/Delete" asp-route-id="@partNo.Id" class="btn btn-sm btn-danger">
+                                <i class="fas fa-trash"></i> 删除
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

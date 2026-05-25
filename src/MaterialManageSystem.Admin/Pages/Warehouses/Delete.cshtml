@@ -1,0 +1,36 @@
+@page "{id}"
+@model MaterialManageSystem.Admin.Pages.Warehouses.DeleteModel
+@{
+    ViewData["Title"] = "删除库房";
+    ViewData["ActivePage"] = "Warehouses";
+}
+
+<div class="card">
+    <div class="card-header">删除库房</div>
+    <div class="card-body">
+        <div class="alert alert-warning">
+            <strong>确认删除</strong>
+            <p>您确定要删除库房 <strong>@Model.Warehouse.Code - @Model.Warehouse.Name</strong> 吗？</p>
+            <p class="text-danger">此操作不可撤销！</p>
+        </div>
+        
+        <div class="form-group">
+            <label>库房编码</label>
+            <input type="text" class="form-control" value="@Model.Warehouse.Code" disabled />
+        </div>
+        <div class="form-group">
+            <label>库房名称</label>
+            <input type="text" class="form-control" value="@Model.Warehouse.Name" disabled />
+        </div>
+        <div class="form-group">
+            <label>位置</label>
+            <input type="text" class="form-control" value="@Model.Warehouse.Location ?? "-"" disabled />
+        </div>
+
+        <form method="post">
+            <input type="hidden" name="id" value="@Model.Warehouse.Id" />
+            <button type="submit" class="btn btn-danger">确认删除</button>
+            <a asp-page="/Warehouses" class="btn btn-secondary">取消</a>
+        </form>
+    </div>
+</div>

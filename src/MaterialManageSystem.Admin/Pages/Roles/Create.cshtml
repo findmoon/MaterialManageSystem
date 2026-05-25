@@ -1,0 +1,24 @@
+@page
+@model MaterialManageSystem.Admin.Pages.Roles.CreateModel
+@{
+    ViewData["Title"] = "新建角色";
+    ViewData["ActivePage"] = "Roles";
+}
+
+<div class="card">
+    <div class="card-header">新建角色</div>
+    <div class="card-body">
+        <form method="post">
+            <div class="form-group">
+                <label>角色名称</label>
+                <input asp-for="Input.Name" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label>描述</label>
+                <textarea asp-for="Input.Description" class="form-control" rows="3"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">创建</button>
+            <a asp-page="/Roles" class="btn btn-secondary">取消</a>
+        </form>
+    </div>
+</div>

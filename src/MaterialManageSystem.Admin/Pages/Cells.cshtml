@@ -1,0 +1,54 @@
+@page
+@model MaterialManageSystem.Admin.Pages.CellsModel
+@{
+    ViewData["Title"] = "单元格管理";
+    ViewData["ActivePage"] = "Cells";
+}
+
+<a asp-page="/Cells/Create" class="btn btn-primary mb-3">
+    <i class="fas fa-plus"></i> 新建单元格
+</a>
+
+<div class="card">
+    <div class="card-header">单元格列表</div>
+    <div class="card-body">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>单元格编码</th>
+                    <th>位置(R-C)</th>
+                    <th>层</th>
+                    <th>货架</th>
+                    <th>库房</th>
+                    <th>状态</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var cell in Model.Cells)
+                {
+                    <tr>
+                        <td>@cell.Code</td>
+                        <td>@cell.Row-@cell.Col</td>
+                        <td>@cell.LayerCode</td>
+                        <td>@cell.RackCode</td>
+                        <td>@cell.WarehouseCode</td>
+                        <td>
+                            <span class="badge @(cell.IsActive ? "badge-success" : "badge-danger")">
+                                @(cell.IsActive ? "启用" : "禁用")
+                            </span>
+                        </td>
+                        <td>
+                            <a asp-page="/Cells/Edit" asp-route-id="@cell.Id" class="btn btn-sm btn-warning">
+                                <i class="fas fa-edit"></i> 编辑
+                            </a>
+                            <a asp-page="/Cells/Delete" asp-route-id="@cell.Id" class="btn btn-sm btn-danger">
+                                <i class="fas fa-trash"></i> 删除
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

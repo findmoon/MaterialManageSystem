@@ -1,0 +1,88 @@
+@page
+@model MaterialManageSystem.Admin.Pages.Employees.EditModel
+@{
+    ViewData["Title"] = "编辑员工";
+}
+
+<div class="card">
+    <div class="card-header">
+        <h5>编辑员工</h5>
+    </div>
+    <div class="card-body">
+        @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+        {
+            <div class="alert alert-danger">@Model.ErrorMessage</div>
+        }
+
+        @if (Model.Employee != null)
+        {
+            <form method="post">
+                <div class="form-group">
+                    <label for="EmployeeNo">员工编号</label>
+                    <input type="text" class="form-control" id="EmployeeNo" name="EmployeeNo" value="@Model.Employee.EmployeeNo" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="Name">姓名</label>
+                    <input type="text" class="form-control" id="Name" name="Name" value="@Model.Employee.Name" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="Department">部门</label>
+                    <input type="text" class="form-control" id="Department" name="Department" value="@Model.Employee.Department" />
+                </div>
+
+                <div class="form-group">
+                    <label for="Position">职位</label>
+                    <input type="text" class="form-control" id="Position" name="Position" value="@Model.Employee.Position" />
+                </div>
+
+                <div class="form-group">
+                    <label for="Phone">电话</label>
+                    <input type="text" class="form-control" id="Phone" name="Phone" value="@Model.Employee.Phone" />
+                </div>
+
+                <div class="form-group">
+                    <label for="Email">邮箱</label>
+                    <input type="email" class="form-control" id="Email" name="Email" value="@Model.Employee.Email" />
+                </div>
+
+                <div class="form-group">
+                    <label for="UserId">关联用户</label>
+                    <select class="form-control" id="UserId" name="UserId">
+                        <option value="">不关联用户</option>
+                        @foreach (var user in Model.AvailableUsers)
+                        {
+                            @if (user.EmployeeId == 0 || user.EmployeeId == Model.Employee.Id)
+                            {
+                                <option value="@user.Id" selected="@(user.Id == Model.Employee.UserId)">@user.Username</option>
+                            }
+                        }
+                    </select>
+                    @if (Model.Employee.HasUser && Model.Employee.UserId > 0)
+                    {
+                        <small class="text-muted">当前已关联用户: @Model.Employee.Username</small>
+                    }
+                </div>
+
+                <div class="form-group">
+                    <label for="IsActive">状态</label>
+                    <select class="form-control" id="IsActive" name="IsActive">
+                        <option value="true" selected="@(Model.Employee.IsActive)">启用</option>
+                        <option value="false" selected="@(!Model.Employee.IsActive)">禁用</option>
+                    </select>
+                </div>
+
+                <div class="mt-3">
+                    <button type="submit" class="btn btn-primary">保存</button>
+                    <a asp-page="/Employees" class="btn btn-secondary">取消</a>
+                </div>
+            </form>
+        }
+        else
+        {
+            <div class="alert alert-danger">员工不存在</div>
+            <a asp-page="/Employees" class="btn btn-secondary">返回列表</a>
+        }
+    </div>
+</div>

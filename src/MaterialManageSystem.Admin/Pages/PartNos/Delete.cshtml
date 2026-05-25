@@ -1,0 +1,40 @@
+@page "{id}"
+@model MaterialManageSystem.Admin.Pages.PartNos.DeleteModel
+@{
+    ViewData["Title"] = "删除物料";
+    ViewData["ActivePage"] = "PartNos";
+}
+
+<div class="card">
+    <div class="card-header">删除物料</div>
+    <div class="card-body">
+        <div class="alert alert-warning">
+            <strong>确认删除</strong>
+            <p>您确定要删除物料 <strong>@Model.PartNo.PartNoCode - @Model.PartNo.Name</strong> 吗？</p>
+            <p class="text-danger">此操作不可撤销！</p>
+        </div>
+        
+        <div class="form-group">
+            <label>物料编码</label>
+            <input type="text" class="form-control" value="@Model.PartNo.PartNoCode" disabled />
+        </div>
+        <div class="form-group">
+            <label>物料名称</label>
+            <input type="text" class="form-control" value="@Model.PartNo.Name" disabled />
+        </div>
+        <div class="form-group">
+            <label>规格</label>
+            <input type="text" class="form-control" value="@Model.PartNo.Specification ?? "-"" disabled />
+        </div>
+        <div class="form-group">
+            <label>单位</label>
+            <input type="text" class="form-control" value="@Model.PartNo.Unit" disabled />
+        </div>
+
+        <form method="post">
+            <input type="hidden" name="id" value="@Model.PartNo.Id" />
+            <button type="submit" class="btn btn-danger">确认删除</button>
+            <a asp-page="/PartNos" class="btn btn-secondary">取消</a>
+        </form>
+    </div>
+</div>

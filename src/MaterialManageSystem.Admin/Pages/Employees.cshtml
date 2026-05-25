@@ -1,0 +1,62 @@
+@page
+@model MaterialManageSystem.Admin.Pages.EmployeesModel
+@{
+    ViewData["Title"] = "员工管理";
+    ViewData["ActivePage"] = "Employees";
+}
+
+<a asp-page="/Employees/Create" class="btn btn-primary mb-3">
+    <i class="fas fa-plus"></i> 新建员工
+</a>
+
+<div class="card">
+    <div class="card-header">员工列表</div>
+    <div class="card-body">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>员工编号</th>
+                    <th>姓名</th>
+                    <th>部门</th>
+                    <th>职位</th>
+                    <th>电话</th>
+                    <th>邮箱</th>
+                    <th>关联用户</th>
+                    <th>状态</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var employee in Model.Employees)
+                {
+                    <tr>
+                        <td>@employee.EmployeeNo</td>
+                        <td>@employee.Name</td>
+                        <td>@(employee.Department ?? "-")</td>
+                        <td>@(employee.Position ?? "-")</td>
+                        <td>@(employee.Phone ?? "-")</td>
+                        <td>@(employee.Email ?? "-")</td>
+                        <td>
+                            <span class="badge @(employee.HasUser ? "bg-info text-white" : "bg-secondary text-white")">
+                                @(employee.HasUser ? "已关联" : "未关联")
+                            </span>
+                        </td>
+                        <td>
+                            <span class="badge @(employee.IsActive ? "bg-success text-white" : "bg-secondary text-white")">
+                                @(employee.IsActive ? "启用" : "禁用")
+                            </span>
+                        </td>
+                        <td>
+                            <a asp-page="/Employees/Edit" asp-route-id="@employee.Id" class="btn btn-sm btn-warning">
+                                <i class="fas fa-edit"></i> 编辑
+                            </a>
+                            <a asp-page="/Employees/Delete" asp-route-id="@employee.Id" class="btn btn-sm btn-danger">
+                                <i class="fas fa-trash"></i> 删除
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

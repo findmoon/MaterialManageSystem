@@ -1,0 +1,52 @@
+@page
+@model MaterialManageSystem.Admin.Pages.WarehousesModel
+@{
+    ViewData["Title"] = "库房管理";
+    ViewData["ActivePage"] = "Warehouses";
+}
+
+<a asp-page="/Warehouses/Create" class="btn btn-primary mb-3">
+    <i class="fas fa-plus"></i> 新建库房
+</a>
+
+<div class="card">
+    <div class="card-header">库房列表</div>
+    <div class="card-body">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>编码</th>
+                    <th>名称</th>
+                    <th>位置</th>
+                    <th>备注</th>
+                    <th>状态</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var warehouse in Model.Warehouses)
+                {
+                    <tr>
+                        <td>@warehouse.Code</td>
+                        <td>@warehouse.Name</td>
+                        <td>@(warehouse.Location ?? "-")</td>
+                        <td>@(warehouse.Remark ?? "-")</td>
+                        <td>
+                            <span class="badge @(warehouse.IsActive ? "badge-success" : "badge-danger")">
+                                @(warehouse.IsActive ? "启用" : "禁用")
+                            </span>
+                        </td>
+                        <td>
+                            <a asp-page="/Warehouses/Edit" asp-route-id="@warehouse.Id" class="btn btn-sm btn-warning">
+                                <i class="fas fa-edit"></i> 编辑
+                            </a>
+                            <a asp-page="/Warehouses/Delete" asp-route-id="@warehouse.Id" class="btn btn-sm btn-danger">
+                                <i class="fas fa-trash"></i> 删除
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

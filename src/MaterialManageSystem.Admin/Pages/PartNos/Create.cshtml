@@ -1,0 +1,40 @@
+@page "{handler?}"
+@model MaterialManageSystem.Admin.Pages.PartNos.CreateModel
+@{
+    ViewData["Title"] = "新建物料";
+    ViewData["ActivePage"] = "PartNos";
+}
+
+<div class="card">
+    <div class="card-header">@(Model.PartNo.Id > 0 ? "编辑物料" : "新建物料")</div>
+    <div class="card-body">
+        <form method="post">
+            <div class="form-group">
+                <label asp-for="PartNo.PartNoCode" class="control-label"></label>
+                <input asp-for="PartNo.PartNoCode" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="PartNo.Name" class="control-label"></label>
+                <input asp-for="PartNo.Name" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="PartNo.Specification" class="control-label"></label>
+                <input asp-for="PartNo.Specification" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="PartNo.Unit" class="control-label"></label>
+                <input asp-for="PartNo.Unit" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="PartNo.WarningQuantity" class="control-label"></label>
+                <input asp-for="PartNo.WarningQuantity" type="number" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="PartNo.WarningDays" class="control-label"></label>
+                <input asp-for="PartNo.WarningDays" type="number" class="form-control" />
+            </div>
+            <button type="submit" class="btn btn-primary mt-3">保存</button>
+            <a asp-page="/PartNos" class="btn btn-secondary mt-3">返回</a>
+        </form>
+    </div>
+</div>

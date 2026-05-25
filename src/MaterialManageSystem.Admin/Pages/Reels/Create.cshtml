@@ -1,0 +1,38 @@
+@page "{handler?}"
+@model MaterialManageSystem.Admin.Pages.Reels.CreateModel
+@{
+    ViewData["Title"] = "新建料卷";
+    ViewData["ActivePage"] = "Reels";
+}
+
+<div class="card">
+    <div class="card-header">新建料卷</div>
+    <div class="card-body">
+        <form method="post">
+            <div class="form-group">
+                <label asp-for="Reel.ReelNo" class="control-label">料卷编号 *</label>
+                <input asp-for="Reel.ReelNo" class="form-control" placeholder="请输入料卷编号" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Reel.PartNoId" class="control-label">物料 *</label>
+                <select asp-for="Reel.PartNoId" class="form-control" asp-items="@(new SelectList(Model.PartNos, "Id", "PartNoCode"))">
+                    <option value="">请选择物料</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Reel.InitialQuantity" class="control-label">初始数量 *</label>
+                <input asp-for="Reel.InitialQuantity" type="number" step="any" class="form-control" placeholder="请输入初始数量" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Reel.ManufactureDate" class="control-label">生产日期</label>
+                <input asp-for="Reel.ManufactureDate" type="date" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Reel.ExpiryDate" class="control-label">过期日期</label>
+                <input asp-for="Reel.ExpiryDate" type="date" class="form-control" />
+            </div>
+            <button type="submit" class="btn btn-primary mt-3">保存</button>
+            <a asp-page="/Reels" class="btn btn-secondary mt-3">返回</a>
+        </form>
+    </div>
+</div>

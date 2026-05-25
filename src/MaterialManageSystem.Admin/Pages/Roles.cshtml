@@ -1,0 +1,48 @@
+@page
+@model MaterialManageSystem.Admin.Pages.RolesModel
+@{
+    ViewData["Title"] = "角色管理";
+    ViewData["ActivePage"] = "Roles";
+}
+
+<a asp-page="/Roles/Create" class="btn btn-primary mb-3">
+    <i class="fas fa-plus"></i> 新建角色
+</a>
+
+<div class="card">
+    <div class="card-header">角色列表</div>
+    <div class="card-body">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>角色名称</th>
+                    <th>描述</th>
+                    <th>状态</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var role in Model.Roles)
+                {
+                    <tr>
+                        <td>@role.Name</td>
+                        <td>@(role.Description ?? "-")</td>
+                        <td>
+                            <span class="badge @(role.IsActive ? "bg-success text-white" : "bg-secondary text-white")">
+                                @(role.IsActive ? "启用" : "禁用")
+                            </span>
+                        </td>
+                        <td>
+                            <a asp-page="/Roles/Edit" asp-route-id="@role.Id" class="btn btn-sm btn-warning">
+                                <i class="fas fa-edit"></i> 编辑
+                            </a>
+                            <a asp-page="/Roles/Delete" asp-route-id="@role.Id" class="btn btn-sm btn-danger">
+                                <i class="fas fa-trash"></i> 删除
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

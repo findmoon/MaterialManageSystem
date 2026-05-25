@@ -1,0 +1,32 @@
+@page "{id}"
+@model MaterialManageSystem.Admin.Pages.Roles.DeleteModel
+@{
+    ViewData["Title"] = "删除角色";
+    ViewData["ActivePage"] = "Roles";
+}
+
+<div class="card">
+    <div class="card-header">删除角色</div>
+    <div class="card-body">
+        <div class="alert alert-warning">
+            <strong>确认删除</strong>
+            <p>您确定要删除角色 <strong>@Model.Role.Name</strong> 吗？</p>
+            <p class="text-danger">此操作不可撤销！</p>
+        </div>
+        
+        <div class="form-group">
+            <label>角色名称</label>
+            <input type="text" class="form-control" value="@Model.Role.Name" disabled />
+        </div>
+        <div class="form-group">
+            <label>描述</label>
+            <input type="text" class="form-control" value="@Model.Role.Description ?? "-"" disabled />
+        </div>
+
+        <form method="post">
+            <input type="hidden" name="id" value="@Model.Role.Id" />
+            <button type="submit" class="btn btn-danger">确认删除</button>
+            <a asp-page="/Roles" class="btn btn-secondary">取消</a>
+        </form>
+    </div>
+</div>

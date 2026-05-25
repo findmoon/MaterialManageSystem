@@ -1,0 +1,40 @@
+@page "{id}"
+@model MaterialManageSystem.Admin.Pages.Reels.DeleteModel
+@{
+    ViewData["Title"] = "删除料卷";
+    ViewData["ActivePage"] = "Reels";
+}
+
+<div class="card">
+    <div class="card-header">删除料卷</div>
+    <div class="card-body">
+        <div class="alert alert-warning">
+            <strong>确认删除</strong>
+            <p>您确定要删除料卷 <strong>@Model.Reel.ReelNo</strong> 吗？</p>
+            <p class="text-danger">此操作不可撤销！</p>
+        </div>
+        
+        <div class="form-group">
+            <label>料卷编号</label>
+            <input type="text" class="form-control" value="@Model.Reel.ReelNo" disabled />
+        </div>
+        <div class="form-group">
+            <label>物料编码</label>
+            <input type="text" class="form-control" value="@Model.Reel.PartNoCode" disabled />
+        </div>
+        <div class="form-group">
+            <label>物料名称</label>
+            <input type="text" class="form-control" value="@Model.Reel.PartNoName" disabled />
+        </div>
+        <div class="form-group">
+            <label>当前数量</label>
+            <input type="text" class="form-control" value="@Model.Reel.CurrentQuantity" disabled />
+        </div>
+
+        <form method="post">
+            <input type="hidden" name="id" value="@Model.Reel.Id" />
+            <button type="submit" class="btn btn-danger">确认删除</button>
+            <a asp-page="/Reels" class="btn btn-secondary">取消</a>
+        </form>
+    </div>
+</div>

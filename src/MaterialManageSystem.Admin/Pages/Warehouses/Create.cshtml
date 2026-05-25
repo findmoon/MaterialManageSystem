@@ -1,0 +1,36 @@
+@page "{handler?}"
+@model MaterialManageSystem.Admin.Pages.Warehouses.CreateModel
+@{
+    ViewData["Title"] = "新建库房";
+    ViewData["ActivePage"] = "Warehouses";
+}
+
+<div class="card">
+    <div class="card-header">@(Model.Warehouse.Id > 0 ? "编辑库房" : "新建库房")</div>
+    <div class="card-body">
+        <form method="post">
+            <div class="form-group">
+                <label asp-for="Warehouse.Code" class="control-label"></label>
+                <input asp-for="Warehouse.Code" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Warehouse.Name" class="control-label"></label>
+                <input asp-for="Warehouse.Name" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Warehouse.Location" class="control-label"></label>
+                <input asp-for="Warehouse.Location" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Warehouse.Remark" class="control-label"></label>
+                <textarea asp-for="Warehouse.Remark" class="form-control" rows="3"></textarea>
+            </div>
+            <div class="form-group">
+                <label asp-for="Warehouse.IsActive" class="control-label"></label>
+                <input asp-for="Warehouse.IsActive" type="checkbox" />
+            </div>
+            <button type="submit" class="btn btn-primary mt-3">保存</button>
+            <a asp-page="/Warehouses" class="btn btn-secondary mt-3">返回</a>
+        </form>
+    </div>
+</div>

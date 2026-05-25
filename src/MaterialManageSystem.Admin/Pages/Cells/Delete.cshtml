@@ -1,0 +1,36 @@
+@page "{id}"
+@model MaterialManageSystem.Admin.Pages.Cells.DeleteModel
+@{
+    ViewData["Title"] = "删除单元格";
+    ViewData["ActivePage"] = "Cells";
+}
+
+<div class="card">
+    <div class="card-header">删除单元格</div>
+    <div class="card-body">
+        <div class="alert alert-warning">
+            <strong>确认删除</strong>
+            <p>您确定要删除单元格 <strong>@Model.Cell.Code</strong> 吗？</p>
+            <p class="text-danger">此操作不可撤销！</p>
+        </div>
+        
+        <div class="form-group">
+            <label>单元格编码</label>
+            <input type="text" class="form-control" value="@Model.Cell.Code" disabled />
+        </div>
+        <div class="form-group">
+            <label>位置</label>
+            <input type="text" class="form-control" value="@Model.Cell.Row-@Model.Cell.Col" disabled />
+        </div>
+        <div class="form-group">
+            <label>库房/货架/层</label>
+            <input type="text" class="form-control" value="@Model.Cell.WarehouseCode / @Model.Cell.RackCode / @Model.Cell.LayerCode" disabled />
+        </div>
+
+        <form method="post">
+            <input type="hidden" name="id" value="@Model.Cell.Id" />
+            <button type="submit" class="btn btn-danger">确认删除</button>
+            <a asp-page="/Cells" class="btn btn-secondary">取消</a>
+        </form>
+    </div>
+</div>

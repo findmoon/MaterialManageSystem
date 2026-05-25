@@ -1,0 +1,63 @@
+@page
+@model MaterialManageSystem.Admin.Pages.WarningsModel
+@{
+    ViewData["Title"] = "预警管理";
+    ViewData["ActivePage"] = "Warnings";
+}
+
+<div class="card">
+    <div class="card-header">预警列表</div>
+    <div class="card-body">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>预警类型</th>
+                    <th>物料名称</th>
+                    <th>料卷编号</th>
+                    <th>预警描述</th>
+                    <th>预警时间</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var warning in Model.Warnings)
+                {
+                    <tr>
+                        <td>
+                            <span class="badge @GetWarningTypeClass(warning.WarningType)">@GetWarningTypeName(warning.WarningType)</span>
+                        </td>
+                        <td>@warning.PartNoName</td>
+                        <td>@warning.ReelNo</td>
+                        <td>@warning.Message</td>
+                        <td>@warning.CreatedAt</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@functions {
+    private string GetWarningTypeName(int type)
+    {
+        return type switch
+        {
+            0 => "库存不足",
+            1 => "过期预警",
+            2 => "长时间未使用",
+            3 => "即将到期",
+            _ => "未知"
+        };
+    }
+
+    private string GetWarningTypeClass(int type)
+    {
+        return type switch
+        {
+            0 => "bg-danger text-white",
+            1 => "bg-warning text-dark",
+            2 => "bg-info text-white",
+            3 => "bg-primary text-white",
+            _ => "bg-secondary text-white"
+        };
+    }
+}

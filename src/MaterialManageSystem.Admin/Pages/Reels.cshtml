@@ -1,0 +1,81 @@
+@page
+@model MaterialManageSystem.Admin.Pages.ReelsModel
+@{
+    ViewData["Title"] = "料卷管理";
+    ViewData["ActivePage"] = "Reels";
+}
+
+<a asp-page="/Reels/Create" class="btn btn-primary mb-3">
+    <i class="fas fa-plus"></i> 新建料卷
+</a>
+
+<div class="card">
+    <div class="card-header">料卷列表</div>
+    <div class="card-body">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>料卷编号</th>
+                    <th>物料编码</th>
+                    <th>物料名称</th>
+                    <th>初始数量</th>
+                    <th>当前数量</th>
+                    <th>状态</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var reel in Model.Reels)
+                {
+                    <tr>
+                        <td>@reel.ReelNo</td>
+                        <td>@reel.PartNoCode</td>
+                        <td>@reel.PartNoName</td>
+                        <td>@reel.InitialQuantity</td>
+                        <td>@reel.CurrentQuantity</td>
+                        <td>
+                            <span class="badge @GetStatusClass(reel.Status)">@reel.StatusName</span>
+                        </td>
+                        <td>
+                            <a asp-page="/Reels/Edit" asp-route-id="@reel.Id" class="btn btn-sm btn-warning">
+                                <i class="fas fa-edit"></i> 编辑
+                            </a>
+                            <button class="btn btn-sm btn-info" onclick="handleAction(@reel.Id, 'checkout')" 
+                                    @(reel.Status != 0 ? "disabled" : "")>出库</button>
+                            <button class="btn btn-sm btn-success" onclick="handleAction(@reel.Id, 'online')"
+                                    @(reel.Status != 1 ? "disabled" : "")>上线</button>
+                            <button class="btn btn-sm btn-primary" onclick="handleAction(@reel.Id, 'return')"
+                                    @(reel.Status != 2 ? "disabled" : "")>退回</button>
+                            <button class="btn btn-sm btn-danger" onclick="handleAction(@reel.Id, 'scrap')"
+                                    @(reel.Status == 3 ? "disabled" : "")>报废</button>
+                            <a asp-page="/Reels/Delete" asp-route-id="@reel.Id" class="btn btn-sm btn-dark">
+                                <i class="fas fa-trash"></i> 删除
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    function handleAction(reelId, action) {
+        var url = `/Reels?handler=Action&id=${reelId}&action=${action}`;
+        window.location.href = url;
+    }
+</script>
+
+@functions {
+    private string GetStatusClass(int status)
+    {
+        return status switch
+        {
+            0 => "badge-success",
+            1 => "badge-warning",
+            2 => "badge-info",
+            3 => "badge-danger",
+            _ => "badge-secondary"
+        };
+    }
+}

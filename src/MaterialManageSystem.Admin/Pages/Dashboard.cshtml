@@ -1,0 +1,123 @@
+@page
+@model MaterialManageSystem.Admin.Pages.DashboardModel
+@{
+    ViewData["Title"] = "仪表盘";
+    ViewData["ActivePage"] = "Dashboard";
+}
+
+<div class="row">
+    <div class="col-md-3">
+        <div class="card text-white bg-primary mb-4">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <p class="card-text">库房数量</p>
+                        <h2 class="card-title">@(Model.Dashboard?.TotalWarehouses ?? 0)</h2>
+                    </div>
+                    <i class="fas fa-warehouse fa-4x opacity-50"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-white bg-success mb-4">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <p class="card-text">物料种类</p>
+                        <h2 class="card-title">@(Model.Dashboard?.TotalPartNos ?? 0)</h2>
+                    </div>
+                    <i class="fas fa-box fa-4x opacity-50"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-white bg-info mb-4">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <p class="card-text">料卷总数</p>
+                        <h2 class="card-title">@(Model.Dashboard?.TotalReels ?? 0)</h2>
+                    </div>
+                    <i class="fas fa-cog fa-4x opacity-50"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-white bg-danger mb-4">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <p class="card-text">预警数量</p>
+                        <h2 class="card-title">@(Model.Dashboard?.ActiveWarnings ?? 0)</h2>
+                    </div>
+                    <i class="fas fa-exclamation-triangle fa-4x opacity-50"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card mb-4">
+            <div class="card-header">库存状态</div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between">
+                        <span>在库</span>
+                        <span>@(Model.Dashboard?.InStockReels ?? 0)</span>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar bg-success" style="width: @(Model.InStockPercent)%"></div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between">
+                        <span>出库</span>
+                        <span>@(Model.Dashboard?.OutStockReels ?? 0)</span>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar bg-info" style="width: @(Model.OutStockPercent)%"></div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between">
+                        <span>在线</span>
+                        <span>@(Model.Dashboard?.OnlineReels ?? 0)</span>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar bg-warning" style="width: @(Model.OnlinePercent)%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card mb-4">
+            <div class="card-header">快捷操作</div>
+            <div class="card-body">
+                <div class="grid grid-cols-2 gap-3">
+                    <a asp-page="/Warehouses" class="btn btn-primary btn-block p-4">
+                        <i class="fas fa-warehouse fa-2x mb-2"></i>
+                        <br />库房管理
+                    </a>
+                    <a asp-page="/PartNos" class="btn btn-success btn-block p-4">
+                        <i class="fas fa-box fa-2x mb-2"></i>
+                        <br />物料管理
+                    </a>
+                    <a asp-page="/Reels" class="btn btn-info btn-block p-4">
+                        <i class="fas fa-cog fa-2x mb-2"></i>
+                        <br />料卷管理
+                    </a>
+                    <a asp-page="/Warnings" class="btn btn-danger btn-block p-4">
+                        <i class="fas fa-exclamation-triangle fa-2x mb-2"></i>
+                        <br />预警管理
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
