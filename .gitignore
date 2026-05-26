@@ -374,15 +374,3 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 
-# Documentation and script files (project-specific)
-# 临时文档和脚本文件，避免提交
-*.md
-*.sh
-*.ps1
-
-# 重要文档文件例外 - 以下文件不会被忽略
-!所有配置更新说明.md
-!最新修改记录.md
-!启动参数配置管理说明.md
-!Docker部署说明.md
-!MySqlConnection问题扫描报告.md
